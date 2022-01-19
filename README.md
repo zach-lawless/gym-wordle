@@ -1,6 +1,6 @@
 # gym-wordle
 
-A gym environment for playing the game [Wordle](https://www.powerlanguage.co.uk/wordle/)
+A gym environment for playing the game [Wordle](https://www.powerlanguage.co.uk/wordle/).
 
 ## About
 Wordle is a word guessing game where the player has six guesses to guess the five letter hidden word of the day.
@@ -13,10 +13,10 @@ Based on the player's guess, the game provides feedback for each letter in the g
 If the player guesses the word correctly before using up all six of their guesses, they win.
 
 ## Methodology
-The following subsections describe the methodology used to create the environment
+The following subsections describe the methodology used to create the environment.
 
 ### Words
-All possible candidate words for the game Wordle are "hidden" in the source code and can be extracted by inspecting the code via a browser like Firefox or Chrome.
+All possible 5 letter candidate words for the game Wordle are "hidden" in the source code and can be extracted by inspecting the code via a browser like Firefox or Chrome.
 
 I copied all possible words found in the source code to a text file, and encoded them such that they follow the following mapping:
 
@@ -27,7 +27,7 @@ b -> 1
 z -> 25
 ```
 
-This will corresponde nicely to the actions, which will be explained further below.
+This will corresponde nicely to stepping through the environment with agent actions, which will be explained further below.
 
 An example of a possible Wordle word and the corresponding encoding that has been generated for the environment is below:
 
@@ -89,6 +89,7 @@ Explained more in detail, the letter P in the second position is in the correct 
 In order to step through the environment, supply `env.step()` with a length 5 list of integers corresponding to the letter mapping explained above.
 
 Using "OPENS" as the example again, simply execute:
+
 ```
 obs, reward, done, _ = env.step([14, 16, 4, 15, 18])
 ```
@@ -108,4 +109,4 @@ pip install -e .
 ```
 
 ## Final Remarks
-This repo was thrown together for fun in a matter of hours as a hands-on exercise in creating custom OpenAI Gym environment. I am by no means an export in Reinforcement Learning, Gym, or Python code development, and welcome all feedback/feature requests.
+This repo was thrown together for fun in a matter of hours as a hands-on exercise in creating custom OpenAI Gym environments. I am by no means an export in Reinforcement Learning, Gym, or Python, and welcome all feedback/feature requests.
