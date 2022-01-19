@@ -1,0 +1,4 @@
+.vscode
+data/words.txt
+*.ipynb_checkpoints*
+notebooks*
