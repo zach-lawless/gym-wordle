@@ -108,5 +108,25 @@ cd gym-wordle
 pip install -e .
 ```
 
+## Usage
+You can initialize and use the `gym_wordle` OpenAI environment and make random guesses in the following manner:
+
+```
+import gym
+import gym_wordle
+
+env = gym.make('Wordle-v0')
+
+obs = env.reset()
+done = False
+while not done:
+    
+    # make a random guess
+    act = env.action_space.sample()
+    
+    # take a step
+    obs, reward, done, _ = env.step(act)
+```
+
 ## Final Remarks
 This repo was thrown together for fun in a matter of hours as a hands-on exercise in creating custom OpenAI Gym environments. I am by no means an export in Reinforcement Learning, Gym, or Python, and welcome all feedback/feature requests.

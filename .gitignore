@@ -3,3 +3,4 @@ data/words.txt
 *.ipynb_checkpoints*
 notebooks*
 __pycache__
+*.egg-info

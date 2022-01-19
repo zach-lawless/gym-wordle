@@ -1,6 +1,7 @@
 import gym
 from gym import spaces
 import numpy as np
+import pkg_resources
 import random
 from typing import Optional
 
@@ -9,8 +10,9 @@ GAME_LENGTH = 6
 WORD_LENGTH = 5
 
 # load encoded words
-file = open("../../data/words_encoded.txt", "r")
-lines = file.readlines()
+filename = pkg_resources.resource_filename('gym_wordle', 'data/words_encoded.txt')
+with open(filename, "r") as f:
+  lines = f.readlines()
 WORDS = [tuple(int(num) for num in line.strip().split()) for line in lines]
 
 
