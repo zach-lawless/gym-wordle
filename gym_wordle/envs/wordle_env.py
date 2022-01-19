@@ -9,7 +9,7 @@ GAME_LENGTH = 6
 WORD_LENGTH = 5
 
 # load encoded words
-file = open("../data/words_encoded.txt", "r")
+file = open("../../data/words_encoded.txt", "r")
 lines = file.readlines()
 WORDS = [tuple(int(num) for num in line.strip().split()) for line in lines]
 
