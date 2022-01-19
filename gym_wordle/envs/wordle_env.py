@@ -84,7 +84,7 @@ class WordleEnv(gym.Env):
         self.guess_rem -= 1
 
         # check to see if game is over
-        if all(self.board[board_row_idx, :]) == 2:
+        if all(self.board[board_row_idx, :] == 2):
             reward = 1.0
             done = True
         else:
