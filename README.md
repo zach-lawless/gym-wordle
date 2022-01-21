@@ -46,21 +46,18 @@ The Wordle game provides the player with 3 necessary pieces of information to pl
 
 * Alphabet: A keyboard is also shown to the player giving them a friendly perspective into what letters have been used in their guesses and whether or not they are found in the hidden word/in the correct location of the hidden word or not.
 
-* Number of guesses remaining: This is clearly defined in the rules of the game and inferred on the game board, but the environment includes this in the observation space for ease of use.
-
-Therefore, the observation space in the environment consists of:
+Therefore, the observation space in the environment is a `spaces.Dict` consisting of:
 
 ```
-Tuple(
-    Board - spaces.Box(low=-1, high=2, shape=(6, 5), dtype=int)
-    Alphabet - spaces.Box(low=-1, high=2, shape(26,), dtype=int)
-    Guesses Remaining - spaces.Discrete(6)
+Dict(
+    Board: spaces.Box(low=-1, high=2, shape=(6, 5), dtype=int)
+    Alphabet: spaces.Box(low=-1, high=2, shape(26,), dtype=int)
 )
 ```
 
 By default, the value -1 is used in Board and Alphabet to denote an unused row in the board (i.e. when the player has only guessed two words, the last four rows will be filled with -1), and an unguessed letter in the alphabet (i.e. when a letter hasn't been used in a guessed word, it has a value of -1 in the alphabet observation space).
 
-The observation space (Board, Alphabet, and Guesses Remaining) is updated each time step as the player guesses new words, and is populated with encodings in the following manner:
+The observation space is updated each time step as the player guesses new words, and is populated with encodings in the following manner:
 
 ```
 0: a guessed letter does not appear in the hidden word
@@ -79,8 +76,6 @@ board = [[ 0  2  1  0  0]
          [-1 -1 -1 -1 -1]]
 
 alphabet = [[-1 -1 -1 -1 1 -1 -1 -1 -1 -1 -1 -1 -1 0 0 2 -1 -1 0 -1 -1 -1 -1 -1 -1 -1]]
-
-guesses remaining = 5
 ```
 
 Explained more in detail, the letter P in the second position is in the correct location, and the letter E in the third position is in the hidden word but in the wrong position. All other guessed letters in "OPENS" are not in "APPLE".
