@@ -123,5 +123,11 @@ while not done:
     obs, reward, done, _ = env.step(act)
 ```
 
+## Future Improvements
+At some point, I'd like to implement the following:
+* Render: It would be really cool to play the game interactive/visually via the command line, similar to other toy text OpenAI Gym environments. I hope to implement this at some point.
+* Hard Mode: Wordle has a hard mode setting where once you reveal that a letter is in the hidden word, all subsequent guesses must contain the letter. The environment as it currently exists doens't have this functionality.
+* Require logical words: The Wordle game doesn't allow the player to enter in words that don't exist in the dictionary of possible 5 letter hidden words. This prevents a player from simply guessing an illogical/incoherent set of letters. The environment currently would allow a player/agent to enter any non-English 5 letter sequence of letters, which could potentially make the game much easier.
+
 ## Final Remarks
 This repo was thrown together for fun in a matter of hours as a hands-on exercise in creating custom OpenAI Gym environments. I am by no means an export in Reinforcement Learning, Gym, or Python, and welcome all feedback/feature requests.

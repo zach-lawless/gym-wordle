@@ -10,9 +10,12 @@ GAME_LENGTH = 6
 WORD_LENGTH = 5
 
 # load encoded words
-filename = pkg_resources.resource_filename('gym_wordle', 'data/words_encoded.txt')
+filename = pkg_resources.resource_filename(
+    'gym_wordle',
+	'data/words_encoded.txt'
+)
 with open(filename, "r") as f:
-  lines = f.readlines()
+    lines = f.readlines()
 WORDS = [tuple(int(num) for num in line.strip().split()) for line in lines]
 
 
@@ -31,12 +34,12 @@ class WordleEnv(gym.Env):
         * if the character is in the hidden word and in the correct
           location, the character is greened out (encoded as 2 in the 
           environment)
-    
+
     The player continues to guess until they have either guessed the correct
     hidden word, or they have run out of guesses.
 
     The environment is structured in the following way:
-        * Action Space: the action space is a length 5 Box where valid values
+        * Action Space: the action space is a length 5 MulitDiscrete where valid values
           are [0, 25], corresponding to characters [a, z].
         * Observation Space: the observation space is dict consisting of
           two objects:
@@ -45,18 +48,18 @@ class WordleEnv(gym.Env):
             with -1 values, indicating no guess has been made. As the player
             guesses words, the rows will fill up with values in the range
             [0, 2] indicating whether the characters are missing in the
-            hidden word, in the incorrect position, or in the correct position.
-          - alphabet: the alphabet is a 1x26 Box corresponding to the guess
-            status for each letter in the alaphabet. As the start, all values
-            are -1, as no letter has been used in a guess. As the player
-            guesses words, the letters in the alphabet will change to values in
-            the range [0, 2] indicating whether the characters are missing in
-            the hidden word, in the incorrect position, or in the correct
-            position.
+            hidden word, in the incorrect position, or in the correct position
+			based on the most recent guess.
+          - alphabet: the alphabet is a length 26 Box corresponding to the guess status
+            for each letter in the alaphabet. As the start, all values are -1, as no letter
+            has been used in a guess. As the player guesses words, the letters in the 
+            alphabet will change to values in the range [0, 2] indicating whether the
+            characters are missing in the hidden word, in the incorrect position,
+            or in the correct position.
     """
 
     def __init__(self):
-        self.action_space = spaces.Box(low=0, high=25, shape=(WORD_LENGTH,), dtype=int)
+        self.action_space = spaces.MultiDiscrete([26] * WORD_LENGTH)
         self.observation_space = spaces.Dict({
             'board': spaces.Box(low=-1, high=2, shape=(GAME_LENGTH, WORD_LENGTH), dtype=int),
             'alphabet': spaces.Box(low=-1, high=2, shape=(26,), dtype=int)
@@ -103,6 +106,7 @@ class WordleEnv(gym.Env):
         # super().reset(seed=seed)
         self.hidden_word = random.choice(WORDS)
         self.guesses_left = GAME_LENGTH
-        self.board = np.negative(np.ones(shape=(GAME_LENGTH, WORD_LENGTH), dtype=int))
+        self.board = np.negative(
+            np.ones(shape=(GAME_LENGTH, WORD_LENGTH), dtype=int))
         self.alphabet = np.negative(np.ones(shape=(26,), dtype=int))
         return self._get_obs()
