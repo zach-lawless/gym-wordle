@@ -96,7 +96,7 @@ The reward structure for the game is below:
 * If the player hasn't guessed the hidden word but still has guesses remaining, the environment returns `reward=0` and `done=False`.
 * If the player is out of guesses and hasn't guessed the hidden word, the environment returns `reward=-1` and `done=True`.
 
-####Render
+#### Render
 The rendering is always a text output with colour-coded representation of correct letter usage, and letter placement.
 It can be seen as follows:
 
