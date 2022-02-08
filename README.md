@@ -35,7 +35,7 @@ An example of a possible Wordle word and the corresponding encoding that has bee
 A P P L E -> 0 15 15 11 4
 ```
 
-All of the encoded words are stored in `data/words_encoded.txt` as space seperated integers with one word per line.  Don't cheat!
+All of the raw English words are stored in `data/5_words.txt` as space seperated integers with one word per line.  The encoding happens at environment initialization. Don't cheat!
 
 ### Environment
 
@@ -142,6 +142,9 @@ At some point, I'd like to implement the following:
 * Perhaps, a reward function that per step rewards for correct letter usage, and also correct letter placement.
 
 ## Updates
+Version 0.0.1:
+* Initial release with core Wordle functionality, minus some nice to haves.
+
 Version 0.0.2:
 * Added requirement for using 5-letter English words.
 * Changed file for words.
