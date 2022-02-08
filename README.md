@@ -96,11 +96,17 @@ The reward structure for the game is below:
 * If the player hasn't guessed the hidden word but still has guesses remaining, the environment returns `reward=0` and `done=False`.
 * If the player is out of guesses and hasn't guessed the hidden word, the environment returns `reward=-1` and `done=True`.
 
+#### Render
+The rendering is always a text output with colour-coded representation of correct letter usage, and letter placement.
+It can be seen as follows:
+
+![Output Render Image](./output.png)
+
 ## Installation
 
 ```
 cd gym-wordle
-pip install -e .
+pip install .
 ```
 
 ## Usage
@@ -109,25 +115,38 @@ You can initialize and use the `gym_wordle` OpenAI environment and make random g
 ```
 import gym
 import gym_wordle
+from gym_wordle.exceptions import InvalidWordException
 
 env = gym.make('Wordle-v0')
 
 obs = env.reset()
 done = False
 while not done:
-    
-    # make a random guess
-    act = env.action_space.sample()
-    
-    # take a step
-    obs, reward, done, _ = env.step(act)
+    while True:
+        try:
+            # make a random guess
+            act = env.action_space.sample()
+
+            # take a step
+            obs, reward, done, _ = env.step(act)
+            break
+        except InvalidWordException:
+            pass
+
+    env.render()
 ```
 
 ## Future Improvements
 At some point, I'd like to implement the following:
-* Render: It would be really cool to play the game interactive/visually via the command line, similar to other toy text OpenAI Gym environments. I hope to implement this at some point.
 * Hard Mode: Wordle has a hard mode setting where once you reveal that a letter is in the hidden word, all subsequent guesses must contain the letter. The environment as it currently exists doens't have this functionality.
-* Require logical words: The Wordle game doesn't allow the player to enter in words that don't exist in the dictionary of possible 5 letter hidden words. This prevents a player from simply guessing an illogical/incoherent set of letters. The environment currently would allow a player/agent to enter any non-English 5 letter sequence of letters, which could potentially make the game much easier.
+* Perhaps, a reward function that per step rewards for correct letter usage, and also correct letter placement.
+
+## Updates
+Version 0.0.2:
+* Added requirement for using 5-letter English words.
+* Changed file for words.
+* Added a basic render that illustrates a colour-coded board, along with the alphabet.
+* Fixed setup.py.
 
 ## Final Remarks
 This repo was thrown together for fun in a matter of hours as a hands-on exercise in creating custom OpenAI Gym environments. I am by no means an export in Reinforcement Learning, Gym, or Python, and welcome all feedback/feature requests.
