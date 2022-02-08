@@ -114,7 +114,6 @@ You can initialize and use the `gym_wordle` OpenAI environment and make random g
 
 ```
 import gym
-import gym_wordle
 from gym_wordle.exceptions import InvalidWordException
 
 env = gym.make('Wordle-v0')
